@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Random shape</title>
+
+		<style type="text/css">
+			#shape{
+				width: 200px;
+				height: 200px;
+				background: red;
+				display: none;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<h1>Test Your Reactions!</h1>
+		<p>Your time : <span id="timeTaken"></span></p>
+		<div id="shape"></div>
+
+		<script type="text/javascript">
+
+			let start = new Date().getTime();
+		
+			let shape = document.getElementById("shape");
+			
+			function getRandomColor(){
+				let letters = '0123456789ABCDEF'.split('');
+				let color = '#';
+				for (let i = 0; i < 6; i++){
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+
+
+			// Code to display shape
+			function displayShape(){
+
+				let randomSize = Math.floor(Math.random() * 200) + 50;
+				let randomMargin = Math.floor(Math.random() * 300);
+
+				shape.style.display = "block";	
+				shape.style.width = randomSize + "px";
+				shape.style.height = randomSize + "px";
+				shape.style.margin = randomMargin + "px";
+				shape.style.backgroundColor = getRandomColor();
+
+				if (Math.random() > 0.5){
+					shape.style.borderRadius = "50%";
+				} else{
+					shape.style.borderRadius = 0;
+				}
+
+				start = new Date().getTime();
+
+			}
+
+			// Code to display shape after delay
+			function appearAfterDelay(){
+				setTimeout(displayShape, Math.random() * 1000);
+			}
+
+			appearAfterDelay();
+
+			// Code to hide shape
+			shape.onclick = function(){
+
+				shape.style.display = "none";
+
+				let end = new Date().getTime();
+				let timeTaken = (end - start) / 1000;
+
+				document.getElementById("timeTaken").innerHTML = timeTaken + "s";
+
+				appearAfterDelay();
+			}
+		</script>
+
+	</body>
+</html>
